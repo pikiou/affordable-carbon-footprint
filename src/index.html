@@ -1,0 +1,1048 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+  <base href="/">
+  <title>Affordable carbon footprint</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <noscript>This website requires JavaScript to run.</noscript>
+  <style type="text/css">
+  html, body {
+    position: relative;
+    background-size: cover;
+    background-color: #FBF9F9;
+    height: 100%;
+    padding: 0;
+    font-size: 0;
+  }
+  html {
+    margin: 3px;
+  }
+  body {
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+  div {
+    margin: 0;
+    padding: 0;
+  }
+
+  #header {
+    position: relative;
+    width: 100%;
+    height: 1%;
+  }
+  #main {
+    position: relative;
+    width: 100%;
+    height: 98%;
+  }
+  .emissions, .absorptions {
+    text-align: center;
+  }
+
+  .scale, .absorptions, .emissions, .arrows, .legends {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+  }
+
+  .answer, .question-container {
+    position: absolute;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+  }
+  .question-container {
+    left: 100%;
+    opacity: 1;
+    -webkit-transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    -moz-transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    -ms-transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    -o-transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+
+
+  .absorptions, .emissions {
+    width: 11%;
+    max-width: 46px;
+  }
+  .scale {
+    width: 5%;
+    max-width: 20px;
+  }
+  .arrows {
+    width: 11%;
+    max-width: 46px;
+  }
+  .legends {
+    width: 61%;
+    max-width: 250px;
+    overflow: hidden;
+  }
+
+  #header .absorptions, #header .emissions {
+    line-height: 20px;
+    font-size: 25px;
+    vertical-align: top;
+    margin-top: -7px;
+  }
+  #header .absorptions {
+    color: green;
+  }
+  #header .emissions {
+    color: red;
+  }
+
+
+  #main > div {
+    vertical-align: top;
+  }
+  #main .absorptions .slice {
+    display: flex;
+    font-size: 14px;
+    line-height: 9px;
+    color: white;
+    flex-direction: column;
+    justify-content: center;
+    resize: vertical;
+    overflow: auto;
+  }
+  #main .absorptions .slice p {
+    margin: 0;
+    padding: 0;
+  }
+
+  #main .arrows {
+    position: relative;
+  }
+  #main .arrows svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+  }
+
+  #main .answer {
+    font-size: 15px;
+  }
+
+  #main .question {
+    margin-top: 15%;
+    font-size: 17px;
+  }
+  #main .answers {
+    font-size: 15px;
+  }
+
+
+  #main .answers button, #main .answer button {
+    position: relative;
+    width: 100%;
+    text-align: left;
+  }
+  #main .answers button {
+    margin-bottom: 5%;
+  }
+
+  .scale-mark {
+    position: absolute;
+    top: 5%;
+    height: 12px;
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+    -webkit-transition: top 1s;
+    -moz-transition: top 1s;
+    -ms-transition: top 1s;
+    -o-transition: top 1s;
+    transition: top 1s;
+  }
+  #absorptions-mark, #emissions-mark {
+    background-color: white;
+  }
+  #absorptions-mark {
+    z-index: 1;
+  }
+  #emissions-mark {
+    z-index: 2;
+  }
+
+
+  .legends {
+    font-size: 15px;
+  }
+
+  .slice {
+    width: 101%;
+    -webkit-transition: height 1s ease-in-out;
+    -moz-transition: height 1s ease-in-out;
+    -ms-transition: height 1s ease-in-out;
+    -o-transition: height 1s ease-in-out;
+    transition: height 1s ease-in-out;
+    cursor: pointer;
+  }
+
+  .invisible-text {
+    visibility: hidden;
+    display: inline-block;
+    font-size: 10px;
+  }
+  .far-right-text {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    display: block;
+    font-size: 10px;
+  }
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  .tuto-text {
+    position: absolute;
+    visibility: hidden;
+    left: 33%;
+    top: 0;
+    width: 67;
+    max-width: 244px;
+    font-size: 20px;
+    opacity: 0;
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -ms-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+  }
+  .tuto1 .tuto-text1, .tuto2 .tuto-text2 {
+    visibility: visible;
+    opacity: 1;
+  }
+  .tuto1 .emissions, .tuto1 .legends,
+  .tuto2 .legends {
+    visibility: hidden;
+    opacity: 0;
+  }
+  .tuto1 .arrows,
+  .tuto2 .arrows {
+    display: none;
+  }
+
+  #version {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 12px;
+  }
+  </style>
+</head>
+<body class="tuto1" onresize="init()">
+
+  <div id="header">
+    <div class="absorptions">
+    <!-- ☁<br>⇣ -->
+  </div>
+    <div class="scale"></div>
+    <div class="emissions">
+      <!-- ☁<br>⇡ -->
+    </div>
+    <div class="arrows"></div>
+    <div class="legends"></div>
+  </div>
+  <div id="main">
+    <div class="absorptions"></div>
+    <div class="scale"></div>
+    <div class="emissions"></div>
+    <div class="arrows"></div>
+    <div class="legends">
+      <div class="answer"></div>
+      <div class="question-container">
+        <div class="close" onclick="closeQuestion()">&times;</div>
+        <p class="question"></p>
+        <div class="answers"></div>
+      </div>
+    </div>
+    <div class="tuto-text tuto-text1">
+      La planet peut absorber cette quantité de gaz à effet de serre.<br>
+      <button onclick="gotoTuto(2)">Ok</button>
+    </div>
+
+    <div class="tuto-text tuto-text2">
+      Voici la quantité émise par un européen.<br>
+      <button onclick="gotoTuto(3)">La modifier</button>
+    </div>
+  </div>
+  <div id="version">v0.3</div>
+
+  <script>
+  var divs = {
+    answer: document.getElementById("main").getElementsByClassName("answer")[0],
+    questionContainer: document.getElementById("main").getElementsByClassName("question-container")[0],
+    question: document.getElementById("main").getElementsByClassName("question")[0],
+    answers: document.getElementById("main").getElementsByClassName("answers")[0],
+    emissions: document.getElementById("main").getElementsByClassName("emissions")[0],
+    scale: document.getElementById("main").getElementsByClassName("scale")[0],
+    absorptions: document.getElementById("main").getElementsByClassName("absorptions")[0],
+    arrows: document.getElementById("main").getElementsByClassName("arrows")[0],
+  };
+var emissions = [{
+  id: 1,
+  category: "Alimentation",
+  question: "Quelle quantité de fruits et de légumes de saison achetez-vous?",
+  options: [
+    ["Moins d'un quart", 0.59, "< ¼ de légumes de saison"],
+    ["Environ un quart", 0.44, "~ ¼ de légumes de saison"],
+    ["Environ la moitié", 0.3, "~ ½ de légumes de saison"],
+    ["Environ les trois quarts", 0.15, "~ ¾ de légumes de saison"],
+    ["La majorité de mes fruits et légumes est d’origine locale et de saison.", 0.05, "Que des légumes de saison"],
+  ],
+},{
+  id: 2,
+  category: "Alimentation",
+question: "A quelle fréquence consommez-vous du lait et des produits laitiers comme du yaourt, du fromage, du beurre ou de la crème?",
+  options: [
+    ["Plus de 4 fois par jour", 1.73, "4 produits laitiers /jour"],
+    ["2 à 4 fois par jour", 1.16, "2 à 4 produits laitiers /jour"],
+    ["1 à 2 fois par jour", 0.58, "1 à 2 produits laitiers /jour"],
+    ["4 à 6 fois par semaine", 0.28, "4 à 6 produits laitiers /semaine"],
+    ["1 à 3 fois par semaine", 0.11, "1 à 3 produits laitiers /semaine"],
+    ["Moins d'une fois par semaine", 0.03, "< 1 produit laitier /semaine"],
+    ["Jamais (végétarisme, végétalisme)", 0.02, "Jamais de produit laitier"],
+  ],
+},{
+//  id: 3,
+//   category: "Alimentation",
+//   question: "A quelle fréquence mangez-vous des plats contenant des œufs (flans, gâteaux, mayonnaise,…)?",
+//   options: [
+//     ["Plus de 2 fois par jour", 0.12],
+//     ["1 à 2 fois par jour", 0.1],
+//     ["5 à 6 fois par semaine", 0.05],
+//     ["3 à 4 fois par semaine", 0.03],
+//     ["1 à 2 fois par semaine", 0.02],
+//     ["Moins d'une fois par semaine", 0],
+//   ],
+// },{
+  id: 4,
+  category: "Alimentation",
+  question: "A quelle fréquence mangez-vous des plats contenant de la viande ou du poisson (p. ex. des spaghettis à la bolognaise ou des sandwichs au saumon)?",
+  options: [
+    ["Plus de 3 fois par jour", 1.45, "> 3 viandes / poissons /jour"],
+    ["2 à 3 fois par jour", 1.21, "2 à 3 viandes / poissons /jour"],
+    ["1 fois par jour", 0.63, "1 viande / poisson /jour"],
+    ["4 à 6 fois par semaine", 0.34, "4 à 6 viandes / poissons /semaine"],
+    ["1 à 3 fois par semaine", 0.14, "1 à 3 viandes / poissons /semaine"],
+    ["Moins d'une fois par semaine", 0.06, "< 1 viande / poisson /semaine"],
+    ["Jamais (végétarisme, végétalisme)", 0.03, "Jamais de viande / poisson"],
+  ],
+},{
+  id: 5,
+  category: "Alimentation",
+  question: "Lorsque vous faites vos courses, quelle proportion de produits certifiés achetez-vous (bio, MSC, commerce équitable)?",
+  proportionalTo: [1, 2],
+  options: [
+    ["Une part presque nulle", 0.05, "Rien de bio/MSC/équirable"],
+    ["Environ un quart", -0.11, "¼ de bio/MSC/équirable"],
+    ["Environ la moitié", -0.27, "½  de bio/MSC/équirable"],
+    ["Environ les trois quarts", -0.42, "¾ de bio/MSC/équirable"],
+    ["Je cuisine presque exclusivement avec des produits certifiés", -0.58, "Que du bio/MSC/équirable"],
+  ],
+},{
+  id: 6,
+  category: "Alimentation",
+  question: "A quelle fréquence jetez-vous de la nourriture?",
+  proportionalTo: [1, 2],
+  options: [
+    ["Souvent (plusieurs fois par semaine)", 1.15, "Jette souvent de nourriture"],
+    ["De temps en temps", 0, "Jette parfois de nourriture"],
+    ["Presque jamais", -0.6, "Ne jette pas de nourriture"],
+  ],
+},{
+  id: 7,
+  category: "Alimentation",
+  question: "Aliments de base",
+  options: [
+    ["", 0.68],
+  ],
+},
+
+{
+  id: 8,
+  category: "Mobilité",
+  question: "Combien de kilomètres parcourez-vous chaque année à titre privé avec une voiture ou une moto (en tant que conducteur ou passager)?",
+  options: [
+    ["Plus de 30 000 km", 5.6, "> 30 000 km motorisés"],
+    ["Entre 12 500 et 30 000 km", 3.73, "12 500 à 30 000 km motorisés"],
+    ["Entre 7 500 et 12 500 km", 1.87, "7 500 à 12 500 km motorisés"],
+    ["Entre 2 000 et 7 500 km", 0.93, "2 000 à 7 500 km motorisés"],
+    ["Moins de 2 000 km", 0.37, "< 2 000 km motorisés"],
+    ["Je n’utilise jamais de voiture ou de moto", 0, "Jamais motorisés"],
+  ],
+},{
+  id: 9,
+  category: "Mobilité",
+  question: "Quel type de carburant alimente le véhicule que vous utilisez habituellement?",
+  proportionalTo: [8],
+  disabledIf: [8],
+  options: [
+    ["Essence / diesel / hybride", 0, "Véhicule à essence / diesel / hybride"],
+    ["Gaz naturel", -0.97, "Véhicule à gaz naturel"],
+    ["Biogaz", -1.66, "Véhicule à biogaz"],
+    ["Electricité classique", -3.94, "Véhicule à electricité classique"],
+    ["Eco-courant", -4.22, "Véhicule à éco-courant"],
+  ],
+},{
+  id: 10,
+  category: "Mobilité",
+  question: "Combien de carburant consomme réellement votre voiture personnelle?",
+  proportionalTo: [8],
+  disabledIf: [8],
+  options: [
+    ["Plus de 12 l (32 kWh)/100 km", 2.86, "> 12 l ou 32 kWh /100km"],
+    ["9 – 12 l/100 km (ou 28 kWh/100 km pour une voiture électrique)", 1.9, "9 à 12 l ou 28 kWh /100km"],
+    ["6 – 9 l/100 km (ou 20 kWh/100 km pour une voiture électrique)", 0, "6 à 9 l ou 20 kWh /100km"],
+    ["4,5 – 6 l/100 km (ou 14 kWh/100 km pour une voiture électrique)", -1.43, "4,5 à 6 lou 14 kWh /100km"],
+    ["Moins de 4,5 l/100 km (ou 12 kWh/100 km pour une voiture électrique)", -1., "< 4,5 l ou < 12 kWh /100km"],
+    ["Je ne sais pas", 0, "Consommation de carbutant inconnue"],
+  ],
+},{
+  id: 11,
+  category: "Mobilité",
+  question: "Combien de kilomètres faites-vous chaque semaine avec les transports publics (train, bus, tram, bateau) ou avec un vélo électrique? Indiquer tous les trajets privés, trajets domicile/lieu de travail inclus, mais pas les voyages professionnels.",
+  options: [
+    ["Plus de 600 km", 0.89, "> 600 km de transports publics"],
+    ["Entre 360 et 600 km", 0.53, "360 à 600 km de transports publics"],
+    ["Entre 240 et 360 km", 0.33, "249 à 360 km de transports publics"],
+    ["Entre 80 et 240 km", 0.18, "80 à 240 km de transports publics"],
+    ["Entre 60 et 80 km", 0.08, "60 à 80 km de transports publics"],
+    ["Moins de 60 km", 0.03, "< 60 km de transports publics"],
+    ["Je n'emprunte pas les transports publics", 0, "Aucun transports publics"],
+  ],
+},{
+  id: 12,
+  category: "Mobilité",
+  question: "Combien d’heures en moyenne avez-vous pris l’avion pour des raisons privées ces cinq dernières années?",
+  options: [
+    ["Plus de 50 heures par an au total", 13.48, "> 50 h d'avion /an"],
+    ["25 – 50 heures par an au total", 6.74, "25 à 50 h d'avion /an"],
+    ["15 – 25 heures par an au total", 3.59, "15 à 25 h d'avion /an"],
+    ["8 – 15 heures par an au total", 2.07, "8 à 15 h d'avion /an"],
+    ["2 – 8 heures par an au total", 0.9, "2 à 8 h d'avion /an"],
+    ["Moins de 2 heures par an au total", 0.36, "< 2 h d'avion /an"],
+    ["Je n’ai pas pris l’avion ces cinq dernières années", 0, "Pas d'avion"],
+  ],
+},{
+  id: 13,
+  category: "Mobilité",
+  question: "Combien de jours avez-vous passés sur un bateau de croisière ces cinq dernières années en moyenne?",
+  options: [
+    ["Plus de 2 semaines", 2.38, "> 2 semaines de croisières"],
+    ["1 ou 2 semaines", 1.19, "1 à 2 semaines de croisières"],
+    ["4 à 6 jours", 0.6, "4 à 6 jours de croisières"],
+    ["1 à 3 jours", 0.24, "1 à 3 jours de croisières"],
+    ["Je n'ai effectué aucune croisière ces dernières années", 0, "Pas de croisières"],
+  ],
+},
+
+{
+  id: 28,
+  category: "Habitudes de consommation",
+  question: "Quelle somme dépensez-vous chaque mois pour acheter des habits ou des chaussures?",
+  options: [
+    ["Enormément (€230 par mois de dépenses de consommation)", 0.81, "€230 de vetements"],
+    ["Beaucoup (€115 par mois de dépenses de consommation)", 0.41, "€115 de vetements"],
+    ["Moyennement (€90 par mois de dépenses de consommation)", 0.33, "€90 de vetements"],
+    ["Relativement peu (€45 par mois de dépenses de consommation)", 0.16, "€45 de vetements"],
+    ["Très peu (moins de €20 par mois de dépenses de consommation)", 0.07, "< €20 de vetements"],
+  ],
+},{
+  id: 29,
+  category: "Habitudes de consommation",
+  question: "Quelle somme dépensez-vous chaque mois pour les loisirs et la culture (animaux domestiques, abonnement à une salle de sports, journaux et magazines, cinéma, équipements électroniques de divertissement, forfaits loisirs, activités, etc.)?",
+  options: [
+    ["Enormément (€550 par mois de dépenses de consommation)", 1.7, "€550 de loisirs"],
+    ["Beaucoup (€360 par mois de dépenses de consommation)", 1.13, "€360 de loisirs"],
+    ["Moyennement (€230 par mois de dépenses de consommation)", 0.74, "€230 de loisirs"],
+    ["Relativement peu (€135 par mois de dépenses de consommation)", 0.43, "€135 de loisirs"],
+    ["Très peu (moins de €45 par mois de dépenses de consommation)", 0.14, "< €45 de loisirs"],
+  ],
+},{
+  id: 30,
+  category: "Habitudes de consommation",
+  question: "Quelle somme dépensez-vous chaque mois pour acheter du mobilier ou de l’électroménager?",
+  options: [
+    ["Enormément (€270 par mois de dépenses de consommation)", 2.13, "€270 de mobilier/électroménager"],
+    ["Beaucoup (€200 par mois de dépenses de consommation)", 1.43, "€200 de mobilier/électroménager"],
+    ["Moyennement (€115 par mois de dépenses de consommation)", 0.89, "€115 de mobilier/électroménager"],
+    ["Relativement peu (€70 par mois de dépenses de consommation)", 0.53, "€70 de mobilier/électroménager"],
+    ["Très peu (moins de €25 par mois de dépenses de consommation)", 0.18, "< €25 de mobilier/électroménager"],
+  ],
+},{
+  id: 31,
+  category: "Habitudes de consommation",
+  question: "Quelle somme dépensez-vous chaque mois pour vos repas au restaurant, à la cantine ou au fast-food ainsi que pour les nuits passées hors de chez vous?",
+  options: [
+    ["Enormément (€550 par mois de dépenses de consommation)", 1.62, "€550 de restaurant"],
+    ["Beaucoup (€360 par mois de dépenses de consommation)", 1.08, "€360 de restaurant"],
+    ["Moyennement (€230 par mois de dépenses de consommation)", 0.68, "€230 de restaurant"],
+    ["Relativement peu (€90 par mois de dépenses de consommation)", 0.27, "€90 de restaurant"],
+    ["Très peu (moins de €45 par mois de dépenses de consommation)", 0.14, "< €45 de restaurant"],
+  ],
+// },{
+//   id: 32,
+//   category: "Habitudes de consommation",
+//   question: "Quelle part de votre épargne (économies personnelles, investissements, pilier 3a) investissez-vous dans des entreprises écologiques et durables?",
+//   options: [
+//     ["Nulle", 0],
+//     ["Faible", -0.02],
+//     ["Significative", -0.05],
+//     ["La totalité", -0.07],
+//     ["Je ne sais pas", 0],
+//   ],
+},
+
+{
+  id: 14,
+  category: "Logement et énergie",
+  question: "Quel est le type de chauffage que vous privilégiez pour votre domicile en hiver?",
+  options: [
+    ["Chauffage au mazout", 1.44],
+    ["Chauffage au gaz naturel", 1.11],
+    ["Chauffage au mazout avec panneaux solaires", 1.08, "Chauffage au mazout + solaires"],
+    ["Chauffage au gaz avec panneaux solaires", 0.84, "Chauffage au gaz + solaires"],
+    ["Chauffage à distance", 0.71],
+    ["Chauffage électrique (interdit car trop peu efficace par rapport à une pompe à chaleur, système également alimenté par l’électricité).", 0.48, "Chauffage électrique"],
+    ["Pompe à chaleur", 0.2],
+    ["Bois avec panneau solaire", 0.14, "Bois + solaire"],
+    ["Bois (granulés, copeaux de bois ou bûches)", 0.14, "Bois"],
+    ["Je ne sais pas", 1.11, "Chauffage inconnu"],
+  ],
+},{
+ id: 15,
+  category: "Logement et énergie",
+  question: "Quelle norme s'applique à votre logement?",
+  proportionalTo: [14],
+  options: [
+    ["Avant 1980 poru l'année de construction/norme d’assainissement (construction ancienne)", 0.09, "Logement < 1980"],
+    ["1980 – 1990 pour l'année de construction/norme d’assainissement", -0.23, "Logement entre 1980 et 1990"],
+    ["1991 – 2008 pour l'année de construction/norme d’assainissement", -0.46, "Logement entre 1991 et 2008"],
+    ["Postérieure à 2009, nNouvelle construction", -0.86, "Logement > 2009"],
+    ["Minergie (bâtiment à basse consommation d'énergie)", -0.92, "Logement Minergie"],
+    ["Minergie-A (logement autosuffisant ou producteur)", -0.92, "Logement Minergie-A"],
+    ["Minergie-P (logement à très basse consommation d’énergie)", -1.09, "Logement Minergie-P"],
+    ["Je ne sais pas", -0.03, "Logement de norme inconnue"],
+  ],
+},{
+  id: 16,
+  category: "Logement et énergie",
+  question: "Quelle est la superficie de votre logement (surface habitable à chauffer du domicile principal et du logement de vacances hors garage, cave et grenier)?",
+  proportionalTo: [14, 15],
+  options: [
+    ["Plus de 300 m²", 4.49, "> 300 m² de surface"],
+    ["Entre 201 et 300 m²", 3.49, "201 à 300 m² de surface"],
+    ["Entre 151 et 200 m²", 1.98, "151 à 200 m² de surface"],
+    ["Entre 126 et 150 m²", 1.23, "126 à 150 m² de surface"],
+    ["Entre 101 et 125 m²", 0.73, "101 à 125 m² de surface"],
+    ["Entre 76 et 100 m²", 0.23, "76 à 100 m² de surface"],
+    ["Entre 51 et 75 m²", -0.27, "51 à 75 m² de surface"],
+    ["Entre 30 et 50 m²", -0.78, "30 à 50 m² de surface"],
+    ["Moins de 30 m²", -1.03, "< 30 m² de surface"],
+  ],
+},{
+  id: 17,
+  category: "Logement et énergie",
+  question: "Combien de personnes vivent sous le même toit que vous?",
+  proportionalTo: [14, 15, 16],
+  options: [
+    ["1 personne", 6.94],
+    ["2 personnes", 0],
+    ["3 personnes", -2.16],
+    ["4 personnes", -3.24],
+    ["5 personnes", -3.83],
+    ["6 personnes", -4.23],
+    ["7 personnes ou plus", -4.5],
+  ],
+},{
+  id: 18,
+  category: "Logement et énergie",
+  question: "A quelle température chauffez-vous votre domicile?",
+  proportionalTo: [14, 15, 16, 17],
+  options: [
+    ["Plus de 23 °C", 1.25, "> 23 °C de chauffage"],
+    ["Environ 21 °C", 0, "~ 21 °C de chauffage"],
+    ["19 °C maximum", -1.25, "< 19 °C de chauffage"],
+    ["17 °C maximum", -2.5, "< 17 °C de chauffage"],
+    ["Je ne sais pas", 0, "Temperature de chauffage inconue"],
+  ],
+  },{
+  id: 27,
+  category: "Logement et énergie",
+  question: "Bâtiment + Réseaux d’alimentation et d’évacuation + Petit électroménager",
+  proportionalTo: [14, 15, 16, 17, 18, 19],
+  options: [
+    ["", 4.2 + 0.22 +  0.05],
+  ],
+},{
+  id: 19,
+  proportionalTo: [14, 15, 16, 17, 18],
+  category: "Logement et énergie",
+  question: "Dans quel type de logement vivez-vous?",
+  options: [
+    ["Maison individuelle", 0.75],
+    ["Immeuble d'habitation", 0],
+  ],
+// },{
+//   id: 20,
+//   category: "Logement et énergie",
+//   question: "Etes-vous propriétaire de l'appartement ou de la maison dans lequel/laquelle vous vivez?",
+//   options: [
+//     ["Propriétaire (maison ou appartement achetés)", 0],
+//     ["Locataire", 0],
+//   ],
+// },{
+//   id: 21,
+//   category: "Logement et énergie",
+//   question: "Comment chauffez-vous l'eau?",
+//   options: [
+//     ["Chauffage au mazout", 0.26],
+//     ["Chauffage au gaz naturel", 0.2],
+//     ["Chauffage au mazout avec panneaux solaires", 0.14],
+//     ["Chauffage à distance", 0.15],
+//     ["Chauffage au gaz avec panneaux solaires", 0.1],
+//     ["Chauffe-eau électrique (interdit pour cause de manque d’efficacité énergétique)", 0.09],
+//     ["Pompe à chaleur", 0.04],
+//     ["Bois (granulés, copeaux de bois ou bûches)", 0.02],
+//     ["Bois avec panneau solaire", 0.02],
+//     ["Je ne sais pas", 0.2],
+//   ],
+// },{
+//   id: 22,
+//   category: "Logement et énergie",
+//   question: "Quelle est la classe énergétique (en majorité) de votre système d’éclairage et de vos principaux appareils électroménagers (réfrigérateur, congélateur, lave-linge, lave-vaisselle, sèche-linge)?",
+//   options: [
+//     ["Inférieure à A", 0.07],
+//     ["Minimum A", 0.06],
+//     ["Minimum A+", 0.04],
+//     ["Minimum A++", 0.03],
+//     ["Je ne sais pas – la plupart de mes appareils électroménagers ont plus de 10 ans", 0.07],
+//     ["Je ne sais pas – la plupart de mes appareils électroménagers ont moins de 10 ans", 0.05],
+//   ],
+// },{
+//   id: 23,
+//   category: "Logement et énergie",
+//   question: "Quels appareils de réfrigération possédez-vous?",
+//   options: [
+//     ["Plusieurs réfrigérateurs et/ou congélateurs", 0.25],
+//     ["Combiné réfrigérateur-congélateur (à deux portes) ou réfrigérateur avec petit compartiment de congélation combiné à un congélateur", 0.08],
+//     ["Réfrigérateur avec petit compartiment de congélation", 0.06],
+//   ],
+// },{
+//   id: 24,
+//   category: "Logement et énergie",
+//   question: "Comment lavez-vous généralement votre linge?",
+//   options: [
+//     ["Température de lavage maximale prévue pour chaque type de linge, et parfois 95 °C pour le blanc", 0.02],
+//     ["40 °C pour la majeure partie du linge, 60 °C pour environ le tiers, pas de lavage spécial pour le blanc", 0.01],
+//     ["30 °C et moins pour plus de la moitié du linge, 60 °C exceptionnellement", 0.01],
+//   ],
+// },{
+//   id: 25,
+//   category: "Logement et énergie",
+//   question: "Comment faites-vous sécher votre linge?",
+//   options: [
+//     ["Exclusivement au sèche-linge ou dans une pièce équipée d'un sécheur d'air", 0.05],
+//     ["En partie au sèche-linge/sécheur d'air, en partie sur la corde à linge", 0.02],
+//     ["Sur la corde à linge", 0],
+//   ],
+// },{
+//   id: 26,
+//   category: "Logement et énergie",
+//   question: "Quelle place occupe l'éco-courant certifié «naturemade star» dans votre foyer?",
+//   options: [
+//     ["Mon foyer n'est pas alimenté en éco-courant", 0],
+//     ["Une partie de mon foyer est alimentée en éco-courant", -0.18],
+//     ["Mon foyer est alimenté exclusivement en éco-courant", -0.37],
+//   ],
+},
+
+{
+  id: 33,
+  category: "Service public",
+  question: "Services publics + Autres biens de consommation",
+  options: [
+    ["", 1.28 + 0.48],
+  ],
+}];
+
+
+
+  var absorptions = [
+    {
+      id: 1,
+      category: "Océans",
+      question: "Océans",
+      options: [
+        ["", 2.91],
+      ],
+    },
+    {
+      id: 2,
+      category: "Plantes",
+      question: "Plantes",
+      options: [
+        ["", 1.45],
+      ],
+    },
+  ];
+
+
+  //Emission and absorption data indexed by id
+  var dataKeys = {emissions: {}, absorptions: {}};
+  for (var d of emissions) {
+    dataKeys.emissions[d.id] = d;
+  }
+  for (var d of absorptions) {
+    dataKeys.absorptions[d.id] = d;
+  }
+
+  //Colors used for slices
+  var colors = {
+    "Alimentation": ["rgb(215, 71, 42)", "rgb(214, 84, 41)", "rgb(214, 97, 41)", "rgb(214, 110, 41)"],  //Orange
+    "Mobilité": ["rgb(155, 151, 155)", "rgb(147, 142, 147)", "rgb(143, 138, 143)", "rgb(130, 125, 130)"],  //Grey
+    "Logement et énergie": ["rgb(202, 22, 55)", "rgb(191, 34, 62)", "rgb(185, 40, 66)", "rgb(174, 50, 73)"], //Red
+    "Habitudes de consommation": ["rgb(128, 165, 64)", "rgb(114, 147, 57)", "rgb(100, 129, 50)", "rgb(85, 110, 43)", "rgb(71, 92, 36)", "rgb(62, 80, 31)"], //Grenish
+    "Service public": ["rgb(10, 143, 110)"],
+    "Océans": ["rgb(48, 95, 156)"],
+    "Plantes": ["rgb(67, 119, 8)"],
+  };
+
+
+
+
+
+
+  //Initializes HTML
+  function init() {
+    var emissionsTotal = 0;
+    for (var d of emissions) {
+      emissionsTotal += d.options[options[d.id - 1]][1];
+    }
+    var absorptionsTotal = 0;
+    for (var d of absorptions) {
+      absorptionsTotal += d.options[0][1];
+    }
+    co2Total = Math.max(emissionsTotal, absorptionsTotal);
+
+    divs.scale.innerHTML = "";
+    for (var i = 0; i < scaleMax * 2; i++) {
+      divs.scale.innerHTML += `<div class="scale-mark" id="scale${i}">${i % 2 === 0 ? i / 2 : "-"}</div>`;
+    }
+    divs.scale.innerHTML += `<div class="scale-mark" id="absorptions-mark">0</div>`;
+    divs.scale.innerHTML += `<div class="scale-mark" id="emissions-mark">0</div>`;
+
+    divs.answer.innerHTML = "";
+    divs.arrows.innerHTML = "";
+    initVerticalDiagram("emissions", emissions);
+    initVerticalDiagram("absorptions", absorptions);
+    refresh();
+  }
+
+
+  //Returns a GES percentage based on current option
+  function questionRelativeGES(dir, id, optionPos = -1, isMax = false) {
+    id = +id;
+    var d = dataKeys[dir][id];
+    optionPos = dir === "absorptions" ? 0 : (optionPos === -1 ? options[id - 1] : optionPos);
+    var option = d.options[isMax ? 0 : optionPos];
+    if (!d.proportionalTo) {
+      return option[1];
+    }
+
+    var impactedGes = 0;
+    var impactedGesMax = 0;
+    for (var impactedId of d.proportionalTo) {
+      impactedGes += questionRelativeGES(dir, impactedId, -1, isMax);
+      impactedGesMax += questionRelativeGES(dir, impactedId, -1, true);
+    }
+
+    return impactedGes / impactedGesMax * option[1];
+  }
+
+
+  //Returns a GES percentage based on maximum and minimum for that question
+  function questionAbsoluteGES(dir, id, optionPos = -1) {
+    id = +id;
+    var d = dataKeys[dir][id];
+    optionPos = dir === "absorptions" ? 0 : (optionPos === -1 ? options[id - 1] : optionPos);
+    var option = d.options[optionPos];
+    var gesValues = d.options.map(o => o[1]);
+    var width = Math.max.apply(null, gesValues) - Math.min.apply(null, gesValues);
+    return 100 * (width + option[1]) / width;
+  }
+
+
+  //Resizes everything according to options
+  function refresh() {
+    var emissionsTotal = 0;
+    for (var d of emissions) {
+      emissionsTotal += questionRelativeGES("emissions", d.id);
+    }
+    var absorptionsTotal = 0;
+    for (var d of absorptions) {
+      absorptionsTotal += questionRelativeGES("absorptions", d.id);
+    }
+    co2Total = Math.max(emissionsTotal, absorptionsTotal);
+    console.log("co2Total=", co2Total);
+
+    for (var i = 0; i < scaleMax * 2; i++) {
+      document.getElementById(`scale${i}`).style.top = (100 * i / 2 / co2Total - 1) + "%";
+    }
+    document.getElementById("absorptions-mark").style.top = (100 * absorptionsTotal / co2Total - 1) + "%";
+    document.getElementById("absorptions-mark").innerHTML = Math.round(absorptionsTotal * 10) / 10;
+    document.getElementById("emissions-mark").style.top = Math.min(98, (100 * emissionsTotal / co2Total - 1)) + "%";
+    document.getElementById("emissions-mark").innerHTML = Math.round(emissionsTotal * 10) / 10;
+
+    refreshVerticalDiagram("emissions", emissions);
+    refreshVerticalDiagram("absorptions", absorptions);
+  }
+
+  //Generages the HTML of diagram and legends
+  function initVerticalDiagram(dir, data) {
+    var isEmision = dir === "emissions";
+    divs[dir].innerHTML = "";
+    var height = 0;
+    var y = 0;
+    var pos = 0;
+    var prevCategory;
+    var categoryPos = 0;
+    var categoryId = 0;
+    var categoryAnswerPositions = [];
+    var answerHeight = 0;
+    var proportionalsFirstId = 1;
+    for (var d of data) {
+      if (prevCategory !== d.category) {
+        prevCategory = d.category;
+        categoryPos = 0;
+        categoryId++;
+      }
+      var optionCo2 = questionRelativeGES(dir, d.id);
+      height += 100 * optionCo2 / co2Total;
+      if (categoryAnswerPositions.length === 0) {
+        proportionalsFirstId = d.id;
+      }
+      if (isEmision && d.options.length > 1) {
+        var o = d.options[options[d.id - 1]];
+        divs.answer.innerHTML += `
+        <button id="answer${d.id}" onclick="showOptions('${dir}', ${d.id})">${o[2] || o[0]}${dropdownButton}</button>`;
+
+        var answerElmt = document.getElementById(`answer${d.id}`);
+        var answerPos = 100 * answerElmt.offsetTop / answerElmt.parentNode.offsetHeight;
+        answerHeight = 100 * answerElmt.offsetHeight / answerElmt.parentNode.offsetHeight;
+        categoryAnswerPositions.push(answerPos);
+      }
+
+      if (!data[pos + 1] || !data[pos + 1].proportionalTo) {
+        var color = colors[d.category][categoryPos];
+        var inlineLegendHTML = dir === "emissions" ? "" : '<p class="aligned">' + d.category.split("").join("<br>") + '</p>';
+        divs[dir].innerHTML += `<div id="${dir}Slice${d.id}" onclick="showOptions('${dir}', ${proportionalsFirstId})" class="slice" style="background-color: ${color}; height: ${Math.round(height)}%;">${inlineLegendHTML}</div>`;
+
+        if (categoryAnswerPositions.length) {
+          divs.arrows.innerHTML += `
+          <svg id="arrow${categoryPos}_${categoryId}" width='100%' height='100%' viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="grad${categoryPos}_${categoryId}" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color: ${color}; stop-opacity: 0" />
+                <stop offset="50%" style="stop-color: ${color}; stop-opacity: 1" />
+                <stop offset="100%" style="stop-color: ${color}; stop-opacity: 0" />
+              </linearGradient>
+            </defs>
+            <polygon id="polygon${categoryPos}_${categoryId}" points="0,${y} 0,${y + height} 100,${categoryAnswerPositions[categoryAnswerPositions.length - 1] + answerHeight} 100,${categoryAnswerPositions[0]}" fill="${color}" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" />
+          </svg>`;
+        }
+        y += height;
+        height = 0;
+        categoryAnswerPositions = [];
+        categoryPos++;
+      }
+      pos++;
+    }
+
+    //Resize answer element distance from each other
+    var answerElmts = divs.answer.getElementsByTagName("button");
+    var answerCount = answerElmts.length;
+    var lastAnswerElmt = answerElmts[answerCount - 1];
+    var lastAnswerElmtHeight = lastAnswerElmt.offsetTop + lastAnswerElmt.offsetHeight;
+    var legendHeight = lastAnswerElmt.parentNode.offsetHeight;
+    var answerDistance = (legendHeight - lastAnswerElmtHeight) / answerCount;
+    for (var answerElmt of answerElmts) {
+      if (answerElmt !== answerElmts[0]) {
+        var currentMargin = +answerElmt.style.marginTop.replace('px', '');
+        answerElmt.style.marginTop = (currentMargin + answerDistance) + "px";
+      }
+    }
+  }
+
+
+  //Resizes diagram and legends
+  function refreshVerticalDiagram(dir, data, id = 0) {
+    var isEmision = dir === "emissions";
+    var height = 0;
+    var y = 0;
+    var prevCategory;
+    var categoryPos = 0;
+    var categoryId = 0;
+    var categoryAnswerPositions = [];
+    var answerHeight = 0;
+    var pos = 0;
+    var categoryIsSelected = false;
+    for (var d of data) {
+      if (prevCategory !== d.category) {
+        prevCategory = d.category;
+        categoryPos = 0;
+        categoryId++;
+      }
+      if (id === d.id) {
+        categoryIsSelected = true;
+      }
+
+      var optionCo2 = questionRelativeGES(dir, d.id);
+      height += 100 * optionCo2 / co2Total;
+      if (isEmision && d.options.length > 1) {
+        var answerElmt = document.getElementById(`answer${d.id}`);
+        var answerPos = 100 * answerElmt.offsetTop / answerElmt.parentNode.offsetHeight;
+        answerHeight = 100 * answerElmt.offsetHeight / answerElmt.parentNode.offsetHeight;
+        categoryAnswerPositions.push(answerPos);
+        if (d.disabledIf) {
+          var disabledEmissions = 0;
+          for (var disId of d.disabledIf) {
+            disabledEmissions += questionRelativeGES(dir, disId);
+          }
+          if (disabledEmissions === 0) {
+            answerElmt.setAttribute("disabled", true);
+          }
+          else {
+            answerElmt.setAttribute("disabled", false);
+            answerElmt.removeAttribute("disabled");
+          }
+        }
+      }
+
+      if (!data[pos + 1] || !data[pos + 1].proportionalTo) {
+        var inlineLegendHTML = dir === "emissions" ? "" : '<p class="aligned">' + d.category.split("").join("<br>") + '</p>';
+        document.getElementById(`${dir}Slice${d.id}`).style.height = `${height}%`;
+
+        if (categoryAnswerPositions.length) {
+          document.getElementById(`polygon${categoryPos}_${categoryId}`).setAttribute("visibility", height > 0.5 && (id === 0 || categoryIsSelected) ? "visible" : "hidden");
+          if (categoryIsSelected) {
+            var answerElmt = document.getElementById(`option`);
+            var answerPos = 100 * answerElmt.offsetTop / answerElmt.parentNode.parentNode.offsetHeight;
+            answerHeight = 100 * answerElmt.offsetHeight / answerElmt.parentNode.parentNode.offsetHeight;
+            categoryAnswerPositions = [answerPos];
+          }
+          var middleSlice = y + height / 2;
+          var topAnswer = categoryAnswerPositions[categoryAnswerPositions.length - 1] + answerHeight / 2;
+          var bottomAnswer = categoryAnswerPositions[0] + answerHeight / 2;
+          var middleAnswer = middleSlice > topAnswer ? topAnswer : (middleSlice < bottomAnswer ? bottomAnswer : middleSlice);
+          var allAnswerPoints = categoryAnswerPositions.map(pos => `80,${pos + answerHeight / 2} 100,${pos + answerHeight / 2} 80,${pos + answerHeight / 2}`).join(" ");
+          document.getElementById(`polygon${categoryPos}_${categoryId}`).setAttribute("points", `20,${middleSlice} 0,${y} 0,${y + height} 20,${middleSlice} 80,${middleAnswer} ${allAnswerPoints} 80,${middleAnswer}`);
+        }
+        y += height;
+        height = 0;
+        categoryAnswerPositions = [];
+        categoryPos++;
+        categoryIsSelected = false;
+      }
+      pos++;
+    }
+  }
+
+
+
+  function showOptions(dir, id) {
+    id = +id;
+    divs.questionContainer.style.left = "0%";
+    divs.questionContainer.style.opacity = 1;
+    var d = dataKeys[dir][id];
+    divs.question.innerHTML = d.question;
+    divs.answers.innerHTML = "";
+    var optionCo2 = questionRelativeGES("emissions", id);
+    for (var i = 0; i < d.options.length; i++) {
+      var o = d.options[i];
+      if (o[0].length) {
+        var gain = "";
+        var answered = i === options[id - 1];
+        if (!d.proportionalTo) {
+          gain = Math.round(100 * (questionRelativeGES("emissions", id, i) - optionCo2) / Math.abs(optionCo2));
+          gain = " " + (gain >= 0 ? "+" : "") + gain + "%";
+          gain = answered ? "" : gain;
+        }
+        else {
+          gain = Math.round(questionAbsoluteGES("emissions", id, i)) + "%";
+        }
+        divs.answers.innerHTML += `<button ${answered ? `id="option"` : ''} onclick="setOption(${id}, ${i})"><input type="radio" name="answerRadio${d.id}_${i}" value="1" ${answered ? " checked" : ""} />${o[0]}<span class="invisible-text">${gain}</span><span class="far-right-text">${gain}</span></button>`;
+      }
+    }
+    if (dir === "emissions") {
+      setTimeout(() => refreshVerticalDiagram(dir, emissions, id), 100);
+    }
+    return true;
+  }
+
+  function setOption(id, optionChoice) {
+    options[id - 1] = optionChoice;
+    var d = dataKeys.emissions[id];
+    var o = d.options[optionChoice];
+    document.getElementById(`answer${d.id}`).innerHTML = (o[2] || o[0]) + dropdownButton;
+    closeQuestion();
+  }
+
+  function closeQuestion() {
+    setTimeout(() => divs.questionContainer.style.left = "100%", 500);
+    divs.questionContainer.style.opacity = 0;
+    refresh();
+  }
+
+
+  function gotoTuto(tutoId) {
+    document.body.classList.remove(`tuto${tutoId - 1}`);
+    if (tutoId < 3) {
+      document.body.classList.add(`tuto${tutoId}`);
+    }
+    else {
+      refresh();
+    }
+  }
+
+
+
+  //Main
+
+  //User chosen options
+  var options = Array(33).fill(0);
+  options = [1,2,0,2,0,0,0,3,0,1,4,3,3,1,0,5,1,0,0,0,0,0,0,0,0,0,0,0,3,2,2,0,0];  //13.1
+  //optioms = [4,2,0,2,2,2,0,5,0,3,5,6,4,1,0,6,2,1,1,0,0,0,0,0,0,0,0,4,4,3,4,0,0];  //Paul
+
+  //Globals
+  var co2Total = 0;
+  var scaleMax = 30;
+  var dropdownButton = '<span class="invisible-text">▼</span><span class="far-right-text">▼</span>';
+
+  //Start
+  init();
+  // gotoTuto(2);
+  // gotoTuto(3);
+  // refresh();
+  </script>
+</body>
+</html>
