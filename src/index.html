@@ -19,11 +19,15 @@
     font-size: 0;
   }
   html {
-    margin: 3px;
+    /* margin: 3px; */
+    max-width: 414px;
+    max-height: 736px;
+    margin-right: auto;
+    margin-left: auto;
   }
   body {
     width: 100%;
-    margin: 0;
+    margin: 3px;
     overflow: hidden;
   }
   div {
@@ -215,7 +219,7 @@
     position: absolute;
     visibility: hidden;
     left: 33%;
-    top: 0;
+    top: 10%;
     width: 67;
     max-width: 244px;
     font-size: 20px;
@@ -230,7 +234,7 @@
     visibility: visible;
     opacity: 1;
   }
-  .tuto1 .emissions, .tuto1 .legends,
+  .tuto1 .emissions, .tuto1 .legends, .tuto1 #emissions-mark,
   .tuto2 .legends {
     visibility: hidden;
     opacity: 0;
@@ -281,7 +285,7 @@
 
     <div class="tuto-text tuto-text2">
       Voici la quantité émise par un européen.<br>
-      <button onclick="gotoTuto(3)">La modifier</button>
+      <button onclick="gotoTuto(3)">Modifier</button>
     </div>
   </div>
   <div id="version">v0.3</div>
@@ -805,13 +809,25 @@ question: "A quelle fréquence consommez-vous du lait et des produits laitiers c
     co2Total = Math.max(emissionsTotal, absorptionsTotal);
     console.log("co2Total=", co2Total);
 
-    for (var i = 0; i < scaleMax * 2; i++) {
-      document.getElementById(`scale${i}`).style.top = (100 * i / 2 / co2Total - 1) + "%";
-    }
-    document.getElementById("absorptions-mark").style.top = (100 * absorptionsTotal / co2Total - 1) + "%";
+    //Update absorption scale
+    var absorptionsHeight = 100 * absorptionsTotal / co2Total - 1;
+    document.getElementById("absorptions-mark").style.top = absorptionsHeight + "%";
     document.getElementById("absorptions-mark").innerHTML = Math.round(absorptionsTotal * 10) / 10;
-    document.getElementById("emissions-mark").style.top = Math.min(98, (100 * emissionsTotal / co2Total - 1)) + "%";
+
+    //Update emissions scale
+    var emissionsHeight = Math.min(98, (100 * emissionsTotal / co2Total - 1));
+    document.getElementById("emissions-mark").style.top = emissionsHeight + "%";
     document.getElementById("emissions-mark").innerHTML = Math.round(emissionsTotal * 10) / 10;
+
+    //Update all intermediary scales
+    for (var i = 0; i < scaleMax * 2; i++) {
+      var currentQuantity = i / 2;
+      var currentHeight = 100 * i / 2 / co2Total - 1;
+      var showScale = (currentQuantity < absorptionsTotal || (tutoId > 1 && currentQuantity < emissionsTotal))
+      && Math.min(Math.abs(currentQuantity - absorptionsTotal), Math.abs(currentQuantity - emissionsTotal)) > 0.2;
+      document.getElementById(`scale${i}`).style.top = currentHeight + "%";
+      document.getElementById(`scale${i}`).style.visibility = showScale ? "visible" : "hidden";
+    }
 
     refreshVerticalDiagram("emissions", emissions);
     refreshVerticalDiagram("absorptions", absorptions);
@@ -1014,14 +1030,13 @@ question: "A quelle fréquence consommez-vous du lait et des produits laitiers c
   }
 
 
-  function gotoTuto(tutoId) {
+  function gotoTuto(newTutoId) {
+    tutoId = newTutoId;
     document.body.classList.remove(`tuto${tutoId - 1}`);
     if (tutoId < 3) {
       document.body.classList.add(`tuto${tutoId}`);
     }
-    else {
-      refresh();
-    }
+    refresh();
   }
 
 
@@ -1035,6 +1050,7 @@ question: "A quelle fréquence consommez-vous du lait et des produits laitiers c
 
   //Globals
   var co2Total = 0;
+  var tutoId = 1;
   var scaleMax = 30;
   var dropdownButton = '<span class="invisible-text">▼</span><span class="far-right-text">▼</span>';
 
