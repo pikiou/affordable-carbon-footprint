@@ -114,8 +114,6 @@
     color: white;
     flex-direction: column;
     justify-content: center;
-    resize: vertical;
-    overflow: auto;
   }
   #main .absorptions .slice p {
     margin: 0;
@@ -1050,6 +1048,12 @@ question: "A quelle fréquence consommez-vous du lait et des produits laitiers c
 
 
   //Main
+
+  //Warn unsupported browsers
+  var ua = window.navigator.userAgent;
+  if (ua.indexOf("MSIE ") > 0 || /Edge\/\d./i.test(ua)) {
+    alert("Toutes nos excuses mais pour le moment cette page ne fonctionne bien que sur les navigateurs Chrome et Firefox.");
+  }
 
   //Globals
   var co2Total = 0;
