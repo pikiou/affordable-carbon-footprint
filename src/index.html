@@ -230,12 +230,15 @@
     -o-transition: opacity 0.5s;
     transition: opacity 0.5s;
   }
-  .tuto1 .tuto-text1, .tuto2 .tuto-text2 {
+  .tuto1 .tuto-text1,
+  .tuto2 .tuto-text2,
+  .got-cookie .show-cookie {
     visibility: visible;
     opacity: 1;
   }
   .tuto1 .emissions, .tuto1 .legends, .tuto1 #emissions-mark,
-  .tuto2 .legends {
+  .tuto2 .legends,
+  .show-cookie {
     visibility: hidden;
     opacity: 0;
   }
@@ -285,7 +288,9 @@
 
     <div class="tuto-text tuto-text2">
       Voici la quantité émise par un européen.<br>
-      <button onclick="gotoTuto(3)">Modifier</button>
+      <button onclick="gotoTuto(3)">Modifier</button><br>
+      <br>
+      <button class="show-cookie" onclick="options = cookieOptions; gotoTuto(3)">Continuer depuis la dernière évaluation</button>
     </div>
   </div>
   <div id="version">v0.3</div>
@@ -1021,6 +1026,9 @@ question: "A quelle fréquence consommez-vous du lait et des produits laitiers c
     var o = d.options[optionChoice];
     document.getElementById(`answer${d.id}`).innerHTML = (o[2] || o[0]) + dropdownButton;
     closeQuestion();
+    document.cookie = `choices=${JSON.stringify(options)}; expires=${expireDate}`;
+    document.cookie = `v=${version}; expires=${expireDate}`;
+    console.log("saved", `choices=${JSON.stringify(options)}; expires=${expireDate}`);
   }
 
   function closeQuestion() {
@@ -1043,22 +1051,34 @@ question: "A quelle fréquence consommez-vous du lait et des produits laitiers c
 
   //Main
 
-  //User chosen options
-  var options = Array(33).fill(0);
-  options = [1,2,0,2,0,0,0,3,0,1,4,3,3,1,0,5,1,0,0,0,0,0,0,0,0,0,0,0,3,2,2,0,0];  //13.1
-  //optioms = [4,2,0,2,2,2,0,5,0,3,5,6,4,1,0,6,2,1,1,0,0,0,0,0,0,0,0,4,4,3,4,0,0];  //Paul
-
   //Globals
   var co2Total = 0;
   var tutoId = 1;
   var scaleMax = 30;
   var dropdownButton = '<span class="invisible-text">▼</span><span class="far-right-text">▼</span>';
+  var version = 0.3;
+  var d = new Date();
+  d.setTime(d.getTime() + 1000*365*24*60*60*1000); // in milliseconds
+  var expireDate = d.toGMTString()
+
+
+  //User chosen options from cookies
+  var options = [1,2,0,2,0,0,0,3,0,1,4,3,3,1,0,5,1,0,0,0,0,0,0,0,0,0,0,0,3,2,2,0,0];  //13.1
+  //optioms = [4,2,0,2,2,2,0,5,0,3,5,6,4,1,0,6,2,1,1,0,0,0,0,0,0,0,0,4,4,3,4,0,0];  //Paul
+  var cookieOptions = document.cookie.replace(/(?:(?:^|.*;\s*)choices\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  cookieOptions = (cookieOptions && document.cookie && cookieOptions.length !== document.cookie.length) ? JSON.parse(cookieOptions) : false;
+  if (cookieOptions) {
+    document.body.classList.add("got-cookie");
+  }
+
 
   //Start
   init();
-  // gotoTuto(2);
-  // gotoTuto(3);
-  // refresh();
+  if (!"Skip tutoriel") {
+    gotoTuto(2);
+    gotoTuto(3);
+    refresh();
+  }
   </script>
 </body>
 </html>
